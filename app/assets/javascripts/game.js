@@ -23,6 +23,4 @@ function answer(ans){
             console.error(error);
         }
     });
-    setTimeout(function(){onYourTurn()},2000);
-    setTimeout(function(){onNotYourTurn()},4000);
 }

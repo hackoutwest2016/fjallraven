@@ -1,0 +1,33 @@
+<div id="top-panel">
+    <div id="left-panel">
+        <div id="your-artist-box">
+            <div id="your-artist-image" style="background-image:url(http://www.vogue.com/wp-content/uploads/2016/01/11/bowie-2.jpg)"></div>
+            <div id="your-artist-name">
+                <p>DAVID BOWIE</p>
+            </div>
+        </div>
+    </div>
+    <div id="right-panel">
+        <div id="right-panel-top">
+            NOT YOUR TURN
+        </div>
+        <div id="right-panel-center">
+            <p class="not-your-turn">DOES YOUR ARTIST SING IN ENGLISH?</p>
+            <input onkeydown="onNotYourTurn()" class="your-turn" id="enter-question-input" placeholder="Enter a question..."/>
+        </div>
+        <div id="right-panel-bottom" class="not-your-turn">
+            <div onclick="answer('yes')" id="btn-answer-yes">YES</div><div onclick="answer('no')" id="btn-answer-no">NO</div>
+        </div>
+    </div>
+</div>
+<div id="bottom-panel">
+    <%@artists.each do | artist | %>
+        <div class="flip-container" onclick="this.classList.toggle('flipped');">
+            <div class="artist-marker flipper">
+                <div class="front artist-card"><div class="artist-marker-image" style="background-image:url(<%= artist[:image_url] %>)"></div><p><%= artist[:name].upcase %></p></div>
+                <div class="back artist-card"><div class="artist-marker-image" style="background-image:url(<%= image_url("record.png")%>)"></div><p><%= artist[:name].upcase %></p></div>
+            </div>
+        </div>
+    <% end %>
+
+</div>
