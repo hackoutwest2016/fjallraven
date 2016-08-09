@@ -6,8 +6,11 @@ class GameCreatorService
   def call(user_id, playlist_id)
     @user_id = user_id
     @playlist_id = playlist_id
+    randomized_artists = randomize_player_artists(image_urls.uniq)
 
-    Game.create(artists: image_urls.uniq)
+    Game.create(artists: image_urls.uniq,
+                init_player_id: randomized_artists[:init_player],
+                guest_player_id: randomized_artists[:guest_player])
   end
 
   private
@@ -30,4 +33,12 @@ class GameCreatorService
   def tracks
     @tracks ||= RSpotify::Playlist.find(@user_id, @playlist_id).tracks
   end
+
+  def randomize_player_artists(artists)
+    init_player_artist = artists.sample
+    { init_player: init_player_artist.spotify_track_id,
+      guest_player: (artists - [init_player_artist]).sample.spotify_track_id }
+  end
+
+
 end
