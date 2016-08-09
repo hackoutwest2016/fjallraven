@@ -7,21 +7,27 @@ class GameCreatorService
     @user_id = user_id
     @playlist_id = playlist_id
 
-    Game.create(artists: image_urls)
+    Game.create(artists: image_urls.uniq)
   end
 
   private
 
   def image_urls
-    image_urls = {}
-    artists.each do |artist|
-      artist = artist.first
-      image_urls.store(artist.name, artist.images.first['url'])
+    image_urls = []
+    tracks.each do |track|
+
+      artist = track.artists.first
+      artist_name = artist.name
+      next if image_urls.map(&:name).include?(artist_name)
+      image_urls << OpenStruct.new(name: artist_name,
+                                   image_url: artist.images.first['url'],
+                                   preview_url: track.preview_url,
+                                   spotify_track_id: track.id)
     end
     image_urls
   end
 
-  def artists
-    @artists ||= RSpotify::Playlist.find(@user_id, @playlist_id).tracks.map(&:artists)
+  def tracks
+    @tracks ||= RSpotify::Playlist.find(@user_id, @playlist_id).tracks
   end
 end
