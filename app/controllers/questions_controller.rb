@@ -12,7 +12,8 @@ class QuestionsController < ApplicationController
   def broadcast_params
     {
       msg: params[:msg],
-      type: params[:type]
+      type: params[:type],
+      slug: params[:slug]
     }
   end
 

@@ -4,13 +4,15 @@ $(document).ready(function () {
     id: window.gameId,
   }, {
     received: function(data) {
-      console.log(data);
-      if (data.type === 'answer') {
-        // show answer
-        onAnswerReceived(data.msg);
-      } else {
-        // show questsion
-        onQuestionReceived(data.msg);
+      if(data.slug!=window.playerSlug){
+        console.log(data);
+        if (data.type === 'answer') {
+          // show answer
+          onAnswerReceived(data.msg);
+        } else {
+          // show questsion
+          onQuestionReceived(data.msg);
+        }
       }
     },
   });

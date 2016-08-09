@@ -1,10 +1,34 @@
 
+var board = localStorage.getItem("gameboard");
+$(document).ready(function(){
+    if(board) {
+        window.gameboard = JSON.parse(board);
+        var cards = $('.flip-container');
+        for(var i = 0; i<window.gameboard.length; i++){
+            if(window.gameboard[i]){
+                $(cards[i]).addClass('flipped');
+            }
+        }
+    } else {
+        window.gameboard = [];
+    }
+    if(window.startingPlayer){
+        onYourTurn();
+    } else {
+        showLoading();
+    }
+});
+function toggleBoardMarker(index){
+    window.gameboard[index] = !window.gameboard[index];
+    localStorage.setItem("gameboard",JSON.stringify(window.gameboard));
+}
 function onAnswerReceived(ans){
-    $("#answer").text("YES");
+    $("#answer").text(ans.toUpperCase());
     showAnswer();
 }
 function onQuestionReceived(message){
-    $("#question").text("Hej?");
+    console.log(message);
+    $("#question").text(message);
     onNotYourTurn();
 }
 function showLoading(){
@@ -43,7 +67,8 @@ function answer(ans){
     $.post('/questions', {
         type: 'answer',
         msg: ans,
-        id: window.gameId
+        id: window.gameId,
+        slug: window.playerSlug
     }, function (data, status) {
         if (status !== 'success') {
             console.error(status, data);
@@ -53,10 +78,12 @@ function answer(ans){
 }
 function ask(){
     var question = $("#question-input").val();
+    $("#question-input").val('');
     $.post('/questions', {
         type: 'question',
         msg: question,
-        id: window.gameId
+        id: window.gameId,
+        slug: window.playerSlug
     }, function (data, status) {
         if (status !== 'success') {
             console.error(status, data);

@@ -1,6 +1,13 @@
 class GamesController < ApplicationController
   def show
     @game = Game.find_by(init_player_slug: params[:id]) || Game.find_by(guest_player_slug: params[:id])
+    if Game.find_by(init_player_slug: params[:id])
+      @starting_player = false
+      @player_artist = @game.artists.find_by(spotify_artist_id: @game.init_player_id)
+    else
+      @player_artist = @game.artists.find_by(spotify_artist_id: @game.guest_player_id)
+    end
+    @player_slug = params[:id]
     @artists = @game.artists
   end
 
