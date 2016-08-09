@@ -21,11 +21,11 @@ class GameCreatorService
       artist = track.artists.first
       artist_name = artist.name
       next if image_urls.map(&:name).include?(artist_name)
-      image_urls << OpenStruct.new(name: artist_name,
-                                   artist_id: artist.id,
-                                   image_url: artist.images.first['url'],
-                                   preview_url: track.preview_url,
-                                   spotify_track_id: track.id)
+      image_urls << Artist.new(name: artist_name,
+                               spotify_artist_id: artist.id,
+                               image_url: artist.images.first['url'],
+                               preview_url: track.preview_url,
+                               spotify_track_id: track.id)
       break if image_urls.count == 24
     end
     image_urls
@@ -37,9 +37,7 @@ class GameCreatorService
 
   def randomize_player_artists(artists)
     init_player_artist = artists.sample
-    { init_player: init_player_artist.artist_id,
-      guest_player: (artists - [init_player_artist]).sample.artist_id }
+    { init_player: init_player_artist.spotify_artist_id,
+      guest_player: (artists - [init_player_artist]).sample.spotify_artist_id }
   end
-
-
 end
