@@ -2,5 +2,5 @@
 
 <%= form_tag(action: 'create') do %>
   <%= text_field_tag "playlist_uri" %>
-  <%= submit_tag (value = "Start game")%>
+  <%= submit_tag (value = "Start game"), data: { disable_with: "Please wait..." } %>
 <% end %>
