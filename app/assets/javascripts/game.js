@@ -1,6 +1,6 @@
 
-var board = localStorage.getItem("gameboard");
 $(document).ready(function(){
+    var board = localStorage.getItem(window.playerSlug+"gameboard");
     if(board) {
         window.gameboard = JSON.parse(board);
         var cards = $('.flip-container');
@@ -25,7 +25,8 @@ function playSong(url){
 }
 function toggleBoardMarker(index){
     window.gameboard[index] = !window.gameboard[index];
-    localStorage.setItem("gameboard",JSON.stringify(window.gameboard));
+    localStorage.setItem(window.playerSlug+"gameboard",JSON.stringify(window.gameboard));
+    localStorage.setItem("playerSlug",window.playerSlug);
 }
 function onAnswerReceived(ans){
     $("#answer").text(ans.toUpperCase());
