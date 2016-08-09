@@ -1,6 +1,6 @@
 <h1>Paste a link to a spotify playlist</h1>
 
 <%= form_tag(action: 'create') do %>
-  <%= text_field_tag "PlaylistURI" %>
-  <%= submit_tag %>
+  <%= text_field_tag "playlist_uri" %>
+  <%= submit_tag (value = "Start game")%>
 <% end %>

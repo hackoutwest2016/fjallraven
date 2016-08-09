@@ -4,6 +4,6 @@ Rails.application.routes.draw do
 
   root to: 'welcome#index'
 
-  resources :games, only: [:create, :show]
+  resources :games, only: [:create, :show, :new]
   resources :questions, only: :create
 end
