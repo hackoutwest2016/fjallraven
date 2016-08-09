@@ -11,7 +11,7 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 
 group :development, :test do
-  gem 'byebug', platform: :mri
+  gem 'pry', '~> 0.10.3'
 end
 
 group :development do
