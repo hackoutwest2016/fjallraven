@@ -9,6 +9,8 @@ gem 'coffee-rails', '~> 4.2'
 gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
+gem 'figaro', '~> 1.1', '>= 1.1.1'
+gem 'rspotify', '~> 1.18'
 
 group :development, :test do
   gem 'pry', '~> 0.10.3'
