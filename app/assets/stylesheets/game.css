@@ -109,6 +109,9 @@ body{
 }
 .flip-container {
     perspective: 1000px;
+    display: flex;
+    align-items: center;
+    
 }
 /* flip the pane when tapped */
 .flip-container.flipped .flipper {
