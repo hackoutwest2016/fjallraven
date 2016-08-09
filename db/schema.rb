@@ -19,10 +19,10 @@ ActiveRecord::Schema.define(version: 20160809173748) do
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
     t.text     "artists"
-    t.string   "init_player_id"
-    t.string   "guest_player_id"
     t.string   "init_player_slug"
     t.string   "guest_player_slug"
+    t.string   "init_player_id"
+    t.string   "guest_player_id"
     t.index ["guest_player_slug"], name: "index_games_on_guest_player_slug", using: :btree
     t.index ["init_player_slug"], name: "index_games_on_init_player_slug", using: :btree
   end
