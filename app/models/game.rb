@@ -1,5 +1,5 @@
 class Game < ApplicationRecord
-  serialize :artists
+  has_many :artists
 
   before_validation :set_slug
 
