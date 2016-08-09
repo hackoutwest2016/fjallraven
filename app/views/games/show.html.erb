@@ -1,3 +1,6 @@
+<script>
+    window.gameId = <%= @game.id %>;
+</script>
 <div id="top-panel">
     <div id="left-panel">
         <div id="your-artist-box">
@@ -9,14 +12,19 @@
     </div>
     <div id="right-panel">
         <div id="right-panel-top">
-            NOT YOUR TURN
+            <p class="not-your-turn">NOT YOUR TURN</p>
+            <p class="your-turn hidden">YOUR TURN</p>
         </div>
         <div id="right-panel-center">
-            <p class="not-your-turn">DOES YOUR ARTIST SING IN ENGLISH?</p>
-            <input onkeydown="onNotYourTurn()" class="your-turn" id="enter-question-input" placeholder="Enter a question..."/>
+            <p id="question" class="not-your-turn">DOES YOUR ARTIST SING IN ENGLISH?</p>
+            <input class="your-turn" id="question-input" placeholder="Enter a question..."/>
+            <div class="your-turn hidden" onclick="ask()" id="btn-ask">ASK</div>
+            <p class="answer hidden">THE ANSWER IS: <span id="answer"></span>!</p>
+            <p class="loading hidden">WAITING FOR OTHER PLAYER</p>
         </div>
-        <div id="right-panel-bottom" class="not-your-turn">
-            <div onclick="answer('yes')" id="btn-answer-yes">YES</div><div onclick="answer('no')" id="btn-answer-no">NO</div>
+        <div id="right-panel-bottom">
+            <div class="not-your-turn" onclick="answer('yes')" id="btn-answer-yes">YES</div>
+            <div class="not-your-turn" onclick="answer('no')" id="btn-answer-no">NO</div>
         </div>
     </div>
 </div>
