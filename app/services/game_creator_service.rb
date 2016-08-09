@@ -6,8 +6,11 @@ class GameCreatorService
   def call(user_id, playlist_id)
     @user_id = user_id
     @playlist_id = playlist_id
+    randomized_artists = randomize_player_artists(image_urls)
 
-    Game.new(artists: image_urls.uniq)
+    Game.create(artists: image_urls,
+                init_player_id: randomized_artists[:init_player],
+                guest_player_id: randomized_artists[:guest_player])
   end
 
   private
@@ -15,7 +18,6 @@ class GameCreatorService
   def image_urls
     image_urls = []
     tracks.each do |track|
-
       artist = track.artists.first
       artist_name = artist.name
       next if image_urls.map(&:name).include?(artist_name)
@@ -23,6 +25,7 @@ class GameCreatorService
                                    image_url: artist.images.first['url'],
                                    preview_url: track.preview_url,
                                    spotify_track_id: track.id)
+      break if image_urls.count == 24
     end
     image_urls
   end
@@ -30,4 +33,12 @@ class GameCreatorService
   def tracks
     @tracks ||= RSpotify::Playlist.find(@user_id, @playlist_id).tracks
   end
+
+  def randomize_player_artists(artists)
+    init_player_artist = artists.sample
+    { init_player: init_player_artist.spotify_track_id,
+      guest_player: (artists - [init_player_artist]).sample.spotify_track_id }
+  end
+
+
 end
