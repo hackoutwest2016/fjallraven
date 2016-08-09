@@ -5,6 +5,7 @@ class GamesController < ApplicationController
       @starting_player = false
       @player_artist = @game.artists.find_by(spotify_artist_id: @game.init_player_id)
     else
+      @starting_player = true
       @player_artist = @game.artists.find_by(spotify_artist_id: @game.guest_player_id)
     end
     @player_slug = params[:id]
