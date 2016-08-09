@@ -18,6 +18,11 @@ $(document).ready(function(){
         showLoading();
     }
 });
+function playSong(url){
+    var audio = new Audio();
+    audio.src = url;
+    audio.play();
+}
 function toggleBoardMarker(index){
     window.gameboard[index] = !window.gameboard[index];
     localStorage.setItem("gameboard",JSON.stringify(window.gameboard));
