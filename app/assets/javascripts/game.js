@@ -54,6 +54,8 @@ function onYourTurn(){
     $(".loading").hide();
     $(".not-your-turn").hide();
     $(".answer").hide();
+    $("#btn-answer-no").removeClass('selected');
+    $("#btn-answer-yes").removeClass('selected');
 }
 function onNotYourTurn(){
     $(".not-your-turn").fadeIn("slow");
