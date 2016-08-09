@@ -11,13 +11,13 @@ function showLoading(){
     $(".loading").fadeIn("slow");
     $(".answer").hide();
     $(".not-your-turn").hide();
-    $(".your-turn").hide();  
+    $(".your-turn").hide();
 }
 function showAnswer(){
     $(".answer").fadeIn("slow");
     $(".loading").hide();
     $(".not-your-turn").hide();
-    $(".your-turn").hide();   
+    $(".your-turn").hide();
 }
 function onYourTurn(){
     $(".your-turn").fadeIn("slow");
@@ -42,10 +42,11 @@ function answer(ans){
     // send to server
     $.post('/questions', {
         type: 'answer',
-        msg: ans
+        msg: ans,
+        id: window.gameId
     }, function (data, status) {
-        if (status) {
-            console.error(error);
+        if (status !== 'success') {
+            console.error(status, data);
         }
     });
     onYourTurn();
@@ -54,10 +55,11 @@ function ask(){
     var question = $("#question-input").val();
     $.post('/questions', {
         type: 'question',
-        msg: question
+        msg: question,
+        id: window.gameId
     }, function (data, status) {
-        if (status) {
-            console.error(error);
+        if (status !== 'success') {
+            console.error(status, data);
         }
     });
     showLoading();
