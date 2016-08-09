@@ -44,6 +44,7 @@ GEM
       erubis (>= 2.6.6)
       rack (>= 0.9.0)
     builder (3.2.2)
+    byebug (9.0.5)
     coderay (1.1.0)
     coffee-rails (4.2.1)
       coffee-script (>= 2.2.0)
@@ -68,6 +69,8 @@ GEM
     hashie (3.4.4)
     http-cookie (1.0.2)
       domain_name (~> 0.5)
+    httparty (0.14.0)
+      multi_xml (>= 0.5.2)
     i18n (0.7.0)
     jbuilder (2.6.0)
       activesupport (>= 3.0.0, < 5.1)
@@ -77,6 +80,10 @@ GEM
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
     jwt (1.5.4)
+    lastfm (1.27.1)
+      activesupport (>= 3.2.0)
+      httparty
+      xml-simple
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -193,16 +200,19 @@ GEM
     websocket-driver (0.6.4)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
+    xml-simple (1.1.5)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   better_errors
+  byebug
   coffee-rails (~> 4.2)
   figaro (~> 1.1, >= 1.1.1)
   jbuilder (~> 2.5)
   jquery-rails
+  lastfm (~> 1.27)
   listen (~> 3.0.5)
   pg (~> 0.18)
   pry (~> 0.10.3)

@@ -10,6 +10,7 @@ class GamesController < ApplicationController
     end
     @player_slug = params[:id]
     @artists = @game.artists
+    @trivia = ArtistTriviaService.call(@player_artist.name)
   end
 
   def new
