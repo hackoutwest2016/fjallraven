@@ -7,7 +7,7 @@ class GameCreatorService
     @user_id = user_id
     @playlist_id = playlist_id
 
-    Game.create(artists: image_urls.uniq)
+    Game.new(artists: image_urls.uniq)
   end
 
   private

@@ -1,10 +1,7 @@
 class GamesController < ApplicationController
   def show
     @game = Game.find(params[:id])
-    @artists = []
-    24.times do 
-      @artists.push({name:"David Bowie", image_url:"http://www.vogue.com/wp-content/uploads/2016/01/11/bowie-2.jpg", preview_url:"", spotify_track_id:"" })
-    end
+    @artists = @game.artists
   end
 
   def new
@@ -12,7 +9,16 @@ class GamesController < ApplicationController
 
   def create
     parsed_uri = parse_uri(params["playlist_uri"])
-    GameCreatorService.new.call(parsed_uri[:user], parsed_uri[:id])
+
+    @game = GameCreatorService.new.call(parsed_uri[:user], parsed_uri[:id])
+    if @game.save
+      redirect_to @game
+    else
+      render :new
+    end
+  rescue RestClient::ResourceNotFound
+    flash[:alert] = "Cound't find playlist"
+    render :new
   end
 
   private
