@@ -24,6 +24,14 @@ class GamesController < ApplicationController
   private
 
   def parse_uri(uri)
-    { user: uri.split(":")[2], id: uri.split(":").last }
+    if web_url?(uri)
+      { user: uri.split(":")[2], id: uri.split(":").last }
+    else
+      { user: uri.split("/")[4], id: uri.split("/").last }
+    end
+  end
+
+  def web_url?(uri)
+    uri.split("/")[1] != ""
   end
 end
