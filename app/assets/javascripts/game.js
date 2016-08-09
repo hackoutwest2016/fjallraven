@@ -12,18 +12,23 @@ $(document).ready(function(){
     } else {
         window.gameboard = [];
     }
+    if(window.startingPlayer){
+        onYourTurn();
+    } else {
+        showLoading();
+    }
 });
 function toggleBoardMarker(index){
     window.gameboard[index] = !window.gameboard[index];
     localStorage.setItem("gameboard",JSON.stringify(window.gameboard));
 }
 function onAnswerReceived(ans){
-    console.log(ans);
-    $("#answer").text("YES");
+    $("#answer").text(ans.toUpperCase());
     showAnswer();
 }
 function onQuestionReceived(message){
-    $("#question").text("Hej?");
+    console.log(message);
+    $("#question").text(message);
     onNotYourTurn();
 }
 function showLoading(){
@@ -73,6 +78,7 @@ function answer(ans){
 }
 function ask(){
     var question = $("#question-input").val();
+    $("#question-input").val('');
     $.post('/questions', {
         type: 'question',
         msg: question,
