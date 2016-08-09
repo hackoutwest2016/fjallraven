@@ -3,11 +3,18 @@ class QuestionsController < ApplicationController
   before_action :set_game
 
   def create
-    QuestionsChannel.broadcast_to(@game, params[:msg])
+    QuestionsChannel.broadcast_to(@game, broadcast_params)
     render json: params
   end
 
   private
+
+  def broadcast_params
+    {
+      msg: params[:msg],
+      type: params[:type]
+    }
+  end
 
   def set_game
     @game = Game.find(params[:id])

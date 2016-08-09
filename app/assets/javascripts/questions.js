@@ -4,7 +4,13 @@ App.cable.subscriptions.create({
   id: "2",
 }, {
   received: function(data) {
-    // do something sane with the data here, separate if question or answer etc
     console.log(data);
+    if (data.type === 'answer') {
+      // show answer
+      // onAnswerReceived(data.msg);
+    } else {
+      // show questsion
+      // onQuestionReceived(data.msg);
+    }
   },
 });

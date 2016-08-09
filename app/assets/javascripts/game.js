@@ -14,6 +14,15 @@ function answer(ans){
         $("#btn-answer-yes").removeClass('selected');
         $("#btn-answer-no").addClass('selected');
     }
+    // send to server
+    $.post('/questions', {
+        type: 'answer',
+        msg: ans
+    }, function (data, status) {
+        if (status) {
+            console.error(error);
+        }
+    });
     setTimeout(function(){onYourTurn()},2000);
     setTimeout(function(){onNotYourTurn()},4000);
 }
