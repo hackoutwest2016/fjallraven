@@ -1,5 +1,24 @@
 
+var board = localStorage.getItem("gameboard");
+$(document).ready(function(){
+    if(board) {
+        window.gameboard = JSON.parse(board);
+        var cards = $('.flip-container');
+        for(var i = 0; i<window.gameboard.length; i++){
+            if(window.gameboard[i]){
+                $(cards[i]).addClass('flipped');
+            }
+        }
+    } else {
+        window.gameboard = [];
+    }
+});
+function toggleBoardMarker(index){
+    window.gameboard[index] = !window.gameboard[index];
+    localStorage.setItem("gameboard",JSON.stringify(window.gameboard));
+}
 function onAnswerReceived(ans){
+    console.log(ans);
     $("#answer").text("YES");
     showAnswer();
 }
@@ -43,7 +62,8 @@ function answer(ans){
     $.post('/questions', {
         type: 'answer',
         msg: ans,
-        id: window.gameId
+        id: window.gameId,
+        slug: window.playerSlug
     }, function (data, status) {
         if (status !== 'success') {
             console.error(status, data);
@@ -56,7 +76,8 @@ function ask(){
     $.post('/questions', {
         type: 'question',
         msg: question,
-        id: window.gameId
+        id: window.gameId,
+        slug: window.playerSlug
     }, function (data, status) {
         if (status !== 'success') {
             console.error(status, data);

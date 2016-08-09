@@ -121,8 +121,9 @@ input {
 }
 .artist-marker {
     width: 80px;
-    height: 90px;
+    height: 130px;
     margin: 10px;
+    margin-bottom: 0px;
 }
 .artist-marker-image {
     width: 60px;
@@ -163,10 +164,10 @@ input {
 }
 .artist-card {
     width: 80px;
-    height: 90px;
+    height: 130px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
 }
 
