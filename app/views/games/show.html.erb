@@ -1,14 +1,19 @@
 <script>
     window.gameId = <%= @game.id %>;
-    window.playerSlug = "<%= @playerSlug %>";
-    window.startingPlayer = <%= @startingPlayer %>;
+    window.playerSlug = "<%= @player_slug %>";
+    window.startingPlayer = <%= @starting_player %>;
+
+    //MOCK
+    window.artist_name = "<%= @player_artist.name %>";
+    window.artist_id = "<%= @player_artist.id %>";
+    window.artist_preview_url = "<%= @player_artist.preview_url %>";
 </script>
 <div id="top-panel">
     <div id="left-panel">
         <div id="your-artist-box">
-            <div id="your-artist-image" style="background-image:url(http://www.vogue.com/wp-content/uploads/2016/01/11/bowie-2.jpg)"></div>
+            <div id="your-artist-image" style="background-image:url(<%= @player_artist.image_url %>)"></div>
             <div id="your-artist-name">
-                <p>DAVID BOWIE</p>
+                <p><%= @player_artist.name.upcase %></p>
             </div>
         </div>
     </div>
