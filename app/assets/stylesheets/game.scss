@@ -63,8 +63,11 @@ input {
     background-position: center;
     background-size: cover;
 }
-#play-btn:hover{
+#play-btn.paused:hover{
     background-image: image-url('btn-play.png');
+}
+#play-btn.playing{
+    background-image: image-url('btn-pause.png');
 }
 #right-panel {
     flex:1;
