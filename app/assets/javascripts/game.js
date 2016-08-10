@@ -99,3 +99,13 @@ function ask(){
     });
     showLoading();
 }
+function showTrivia() {
+    $('#your-artist-box').fadeOut('fast', function () {
+        $('#your-artist-trivia').fadeIn('fast');
+    });
+}
+function hideTrivia() {
+    $('#your-artist-trivia').fadeOut('fast', function () {
+        $('#your-artist-box').fadeIn('fast');
+    });
+}
