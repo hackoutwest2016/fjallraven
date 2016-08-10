@@ -9,7 +9,6 @@ class GamesController < ApplicationController
       @player_artist = @game.artists.find_by(spotify_artist_id: @game.guest_player_id)
     end
     @player_slug = params[:id]
-    @artists = @game.artists
     @trivia = ArtistTriviaService.call(@player_artist.name)
   end
 
