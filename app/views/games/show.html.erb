@@ -37,7 +37,7 @@
     </div>
 </div>
 <div id="bottom-panel">
-    <%@artists.each_with_index do | artist, index | %>
+    <% @game.artists.each_with_index do |artist, index| %>
         <div class="flip-container" onclick="this.classList.toggle('flipped'); toggleBoardMarker(<%=index%>);">
             <div class="artist-marker flipper">
                 <div class="front artist-card"><div class="artist-marker-image" style="background-image:url(<%= artist[:image_url] %>)"></div><p><%= artist[:name].upcase %></p></div>
