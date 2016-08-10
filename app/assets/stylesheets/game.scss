@@ -176,8 +176,8 @@ input {
     top: 25vh;
     background: #fafafa;
     border-radius: 10px;
-    display: none;
     font-size: 24px;
+    display: none;
     overflow:hidden;
 }
 #lie-popup-inner {
@@ -188,6 +188,17 @@ input {
     align-items: center;
     flex-direction: column;
     font-size: 24px;
+}
+#lie-popup-inner p {
+    margin-top: 0;
+}
+#sad-icon {
+    background-image: image-url('sad.png');
+    width:15vw;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 15vw;
 }
 .flip-container {
     perspective: 1000px;
