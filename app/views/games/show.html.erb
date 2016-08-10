@@ -12,7 +12,7 @@
     <div id="left-panel">
         <div id="your-artist-box">
             <div id="your-artist-image" style="background-image:url(<%= @player_artist.image_url %>)">
-                <div data-preview-url=<%= @player_artist.preview_url %> class="paused" id="play-btn"></div>
+                <div data-preview-url="<%= @player_artist.preview_url %>" class="paused" id="play-btn"></div>
             </div>
             <div id="your-artist-name">
                 <p><%= @player_artist.name.upcase %></p>
@@ -21,7 +21,7 @@
                 Artist info
             </div>
         </div>
-        <div id="your-artist-trivia" class="hidden"> 
+        <div id="your-artist-trivia" class="hidden">
             <p><%= @player_artist.name.upcase %></p>
             <p>
                 <%= @trivia['bio']['summary'].html_safe %>
