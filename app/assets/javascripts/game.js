@@ -162,6 +162,7 @@ function answer(ans){
 }
 function ask(){
     var question = $("#question-input").val();
+    $("#asked-question").text(question);
     $("#question-input").val('');
     $.post('/questions', {
         type: 'question',
