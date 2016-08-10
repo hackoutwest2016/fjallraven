@@ -30,8 +30,7 @@ class GamesController < ApplicationController
   end
   
   def newgame
-    parsed_uri = parse_uri(params["playlist_uri"])
-    @game = GameCreatorService.new.call(parsed_uri[:user], parsed_uri[:id])
+    @game = GameCreatorService.new.call(params["playlist_uri"])
 
     if @game.save
       render json: @game, status: :ok
