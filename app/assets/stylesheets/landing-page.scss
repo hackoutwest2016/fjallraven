@@ -1,0 +1,33 @@
+#bg {
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+}
+#bg img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  min-width: 50%;
+  min-height: 50%;
+}
+#text-wrapper {
+  text-align: center;
+  width:60%;
+  margin:auto;
+  z-index: 100;
+  color: #f2f2f2;
+  font-size: 20px;
+}
+#startGameLink a {
+  color: white;
+  text-decoration: none;
+  font-size: 25px;
+}
+#startGameLink a:hover {
+  color: #ff6f64;
+}

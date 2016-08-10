@@ -1,5 +1,10 @@
-<h1>Give this URL to your friend: </h1>
+<div id="bg">
+  <%= image_tag('crowd_photo.jpg') %>
+</div>
+<div id="text-wrapper">
+  <h1>Give this URL to your friend: </h1>
 
-<p><%= "#{request.base_url}/games/#{@game.guest_player_slug}" %></p>
+  <p style="color: #00e6de; font-size: 25px"><%= "#{request.base_url}/games/#{@game.guest_player_slug}" %></p>
 
-<p>Alright! <%= link_to "Take me to the game!", game_path(@game) %></p>
+  <p id="startGameLink"><%= link_to "Now start game!", game_path(@game) %></p>
+</div>

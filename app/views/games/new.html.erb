@@ -1,6 +1,25 @@
-<h1>Paste a link to a spotify playlist</h1>
+<div id="bg">
+  <%= image_tag('crowd_photo.jpg') %>
+</div>
+<div id="text-wrapper">
+  <h1 style="text-transform: uppercase; color: #ff6f64"> Let's play the guessing game! </h1>
+  <div>
+    Remember the boardgame "Who's there?". This is the same but the persons are artist from your Spotify playlist.
+  </div>
+  <div>
+    <h2> Get started: </h2>
+    <ol style="text-align:left">
+      <li> Copy the Spotify URI of a playlist into the field at the bottom of this page. Remember that the playlist has to be public in order for the game to work.</li>
+      <li> Share the link that will be generated with one of your mates. </li>
+      <li> Start asking each other questions to find out who the other person is! Turn away the artists that have been eliminated by clicking at them.</li>
+    </ol>
+  </div>
+  <div>
+    <h2>Start a new game:</h2>
 
-<%= form_tag(action: 'create') do %>
-  <%= text_field_tag "playlist_uri" %>
-  <%= submit_tag (value = "Start game"), data: { disable_with: "Please wait..." } %>
-<% end %>
+    <%= form_tag(action: 'create') do %>
+      <%= text_field_tag "playlist_uri" %>
+      <%= submit_tag (value = "Start game"), data: { disable_with: "Please wait..." } %>
+    <% end %>
+  </div>
+</div>
