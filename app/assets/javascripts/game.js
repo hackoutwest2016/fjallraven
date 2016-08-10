@@ -1,6 +1,6 @@
 
-var board = localStorage.getItem("gameboard");
 $(document).ready(function(){
+    var board = localStorage.getItem(window.playerSlug+"gameboard");
     if(board) {
         window.gameboard = JSON.parse(board);
         var cards = $('.flip-container');
@@ -18,9 +18,15 @@ $(document).ready(function(){
         showLoading();
     }
 });
+function playSong(url){
+    var audio = new Audio();
+    audio.src = url;
+    audio.play();
+}
 function toggleBoardMarker(index){
     window.gameboard[index] = !window.gameboard[index];
-    localStorage.setItem("gameboard",JSON.stringify(window.gameboard));
+    localStorage.setItem(window.playerSlug+"gameboard",JSON.stringify(window.gameboard));
+    localStorage.setItem("playerSlug",window.playerSlug);
 }
 function onAnswerReceived(ans){
     $("#answer").text(ans.toUpperCase());
@@ -48,6 +54,8 @@ function onYourTurn(){
     $(".loading").hide();
     $(".not-your-turn").hide();
     $(".answer").hide();
+    $("#btn-answer-no").removeClass('selected');
+    $("#btn-answer-yes").removeClass('selected');
 }
 function onNotYourTurn(){
     $(".not-your-turn").fadeIn("slow");

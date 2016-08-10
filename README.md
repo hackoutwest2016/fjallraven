@@ -1,24 +1,14 @@
-# README
+# Who's there?!, Spotify style
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Setup
 
-Things you may want to cover:
+First, install Postgres and Ruby! When you've done so, running these commands from the root of this repo should get you going.
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```sh
+# install dependencies
+bundle install
+# create db
+rails db:create
+# start server
+rails server
+```

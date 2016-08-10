@@ -10,6 +10,7 @@ class GamesController < ApplicationController
     end
     @player_slug = params[:id]
     @artists = @game.artists
+    @trivia = ArtistTriviaService.call(@player_artist.name)
   end
 
   def new
@@ -17,16 +18,20 @@ class GamesController < ApplicationController
 
   def create
     parsed_uri = parse_uri(params["playlist_uri"])
-
     @game = GameCreatorService.new.call(parsed_uri[:user], parsed_uri[:id])
+
     if @game.save
-      redirect_to @game
+      redirect_to "/games/share/#{@game.init_player_slug}"
     else
       render :new
     end
   rescue RestClient::ResourceNotFound
     flash[:alert] = "Cound't find playlist"
     render :new
+  end
+
+  def share
+    @game = Game.find_by(init_player_slug: params[:id])
   end
 
   private

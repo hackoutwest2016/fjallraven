@@ -1,0 +1,5 @@
+<h1>Give this URL to your friend: </h1>
+
+<p><%= "#{request.base_url}/games/#{@game.guest_player_slug}" %></p>
+
+<p>Alright! <%= link_to "Take me to the game!", game_path(@game) %></p>

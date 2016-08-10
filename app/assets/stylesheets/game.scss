@@ -38,16 +38,17 @@ input {
 }
 #your-artist-box {
     width: 120px;
-    height: 150px;
+    height: 160px;
 }
 #your-artist-image {
     height: 120px;
     background-position: center;
     background-size: cover;
     border-radius: 100px; 
+    overflow:hidden;
 }
 #your-artist-name {
-    height: 30px;
+    height: 80px;
     text-align: center;
     margin: 0;
     justify-content: center;
@@ -56,6 +57,14 @@ input {
 }
 #your-artist-name p {
     margin: 0;
+}
+#play-btn {
+    height:120px;
+    background-position: center;
+    background-size: cover;
+}
+#play-btn:hover{
+    background-image: image-url('btn-play.png');
 }
 #right-panel {
     flex:1;
