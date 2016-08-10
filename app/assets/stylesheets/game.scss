@@ -86,9 +86,15 @@ input {
     justify-content: center;
     align-items: center;
     font-size: 26px;
+    flex-direction: column;
 }
-#question-input {
-    display: none;
+#question-input-wrapper {
+    flex-direction: row;
+    display: flex;
+}
+#new-game-input-wrapper {
+    display: flex;
+    flex-direction: row;
 }
 .hidden {
     display: none;
@@ -115,12 +121,15 @@ input {
 .selected {
     background-color: green!important;
 }
-#btn-ask {
+.btn {
     background-color: #505151;
     color: #fafafa;
     width: 100px;
     margin-left: 20px;
     text-align: center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
 }
 #right-panel-bottom div:hover {
     background-color: #305151;
@@ -130,6 +139,7 @@ input {
     display: flex;
     background-color: #fff5c9;
     flex-flow: row wrap;
+    align-items: center;
 }
 .artist-marker {
     width: 80px;
@@ -148,11 +158,21 @@ input {
     margin: 0;
     text-align: center;
 }
-.flip-container {
-    perspective: 1000px;
+.artist-card {
+    width: 80px;
+    height: 130px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    cursor: pointer;
+}
+.artist-container {
     display: flex;
     align-items: center;
-
+}
+.flip-container {
+    perspective: 1000px;
 }
 /* flip the pane when tapped */
 .flip-container.flipped .flipper {
@@ -174,14 +194,6 @@ input {
     top: 0;
     left: 0;
 }
-.artist-card {
-    width: 80px;
-    height: 130px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-}
 
 /* front pane, placed above back */
 .front {
@@ -195,6 +207,18 @@ input {
     transform: rotateY(180deg);
 }
 
+.toggle-trivia {
+    cursor: pointer;
+    text-align: center;
+}
+
+#your-artist-trivia {
+    padding: 0 30px;
+}
+
+#your-artist-trivia a {
+    color: lighten(black, 20%);
+}
 
 .spinner {
   margin: 100px auto;

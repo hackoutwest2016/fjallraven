@@ -2,10 +2,11 @@
     window.gameId = <%= @game.id %>;
     window.playerSlug = "<%= @player_slug %>";
     window.startingPlayer = <%= @starting_player %>;
+    window.playlist_uri = "<%= @game.playlist_uri %>";
 
     //MOCK
-    window.artist_name = "<%= @player_artist.name %>";
-    window.artist_id = "<%= @player_artist.id %>";
+    window.artistName = "<%= @player_artist.name %>";
+    window.artistId = "<%= @player_artist.id %>";
 </script>
 <div id="top-panel">
     <div id="left-panel">
@@ -16,6 +17,18 @@
             <div id="your-artist-name">
                 <p><%= @player_artist.name.upcase %></p>
             </div>
+            <div onClick="showTrivia()" class="toggle-trivia">
+                Artist information
+            </div>
+        </div>
+        <div id="your-artist-trivia" class="hidden">
+            <p><%= @player_artist.name.upcase %></p>
+            <p>
+                <%= @trivia['bio']['summary'].html_safe %>
+            </p>
+            <p onClick="hideTrivia()" class="toggle-trivia">
+                Back
+            </p>
         </div>
     </div>
     <div id="right-panel">
@@ -25,10 +38,21 @@
         </div>
         <div id="right-panel-center">
             <p id="question" class="not-your-turn">DOES YOUR ARTIST SING IN ENGLISH?</p>
-            <input class="your-turn" id="question-input" placeholder="Enter a question..."/>
-            <div class="your-turn hidden" onclick="ask()" id="btn-ask">ASK</div>
+            <div id="question-input-wrapper" class="your-turn hidden" >
+                <input id="question-input" placeholder="Enter a question..."/>
+                <div class="btn" onclick="ask()" id="btn-ask">ASK</div>
+            </div>
             <p class="answer hidden">THE ANSWER IS: <span id="answer"></span>!</p>
             <p class="loading hidden">WAITING FOR OTHER PLAYER</p>
+            <p class="won hidden">YOU WON!</p> 
+            <p class="won hidden">Waiting for other player to start a new game.</p>
+            <p class="lost hidden">You Lost!</p>
+            <p class="lost hidden">Pick a new playlist or play again with the same.</p>
+            <div id="new-game-input-wrapper" class="lost hidden" >
+                <input id="new-game-input" placeholder="Playlist ID..."/>
+                <div class="btn" onclick="newGame(false)" id="btn-new-game">NEW</div>
+                <div class="btn" onclick="newGame(true)" id="btn-new-game">SAME</div>
+            </div>
         </div>
         <div id="right-panel-bottom">
             <div class="not-your-turn" onclick="answer('yes')" id="btn-answer-yes">YES</div>
@@ -38,7 +62,7 @@
 </div>
 <div id="bottom-panel">
     <% @game.artists.each_with_index do |artist, index| %>
-        <div class="flip-container" onclick="this.classList.toggle('flipped'); toggleBoardMarker(<%=index%>);">
+        <div class="flip-container artist-container" onclick="this.classList.toggle('flipped'); toggleBoardMarker(<%=index%>);">
             <div class="artist-marker flipper">
                 <div class="front artist-card"><div class="artist-marker-image" style="background-image:url(<%= artist[:image_url] %>)"></div><p><%= artist[:name].upcase %></p></div>
                 <div class="back artist-card"><div class="artist-marker-image" style="background-image:url(<%= image_url("record.png")%>)"></div><p><%= artist[:name].upcase %></p></div>
