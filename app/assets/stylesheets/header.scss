@@ -1,0 +1,21 @@
+#header {
+  width: 100%;
+  height: 30px;
+  margin: 0;
+  padding: 5px;
+  background: black;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  font-size: 17px;
+  box-sizing: border-box;
+
+  span {
+    margin: 0;
+    display: inline-block;
+  }
+
+  a {
+    color: darken(white, 20%);
+  }
+}

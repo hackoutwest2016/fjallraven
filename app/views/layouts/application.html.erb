@@ -14,6 +14,13 @@
     <% if flash[:alert] %>
       <div class="alert"><%= flash[:alert] %></div>
     <% end %>
+    <div id="header">
+      <span>The Guessing Game</span>
+      <span class="right">
+        made at
+        <a href="https://github.com/hackoutwest2016/the-guessing-game">Hack Out West 2016</a>
+      </span>
+    </div>
     <%= yield %>
   </body>
 </html>
