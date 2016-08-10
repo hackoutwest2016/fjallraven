@@ -16,8 +16,7 @@ class GamesController < ApplicationController
   end
 
   def create
-    parsed_uri = parse_uri(params["playlist_uri"])
-    @game = GameCreatorService.new.call(parsed_uri[:user], parsed_uri[:id])
+    @game = GameCreatorService.new.call(params["playlist_uri"])
 
     if @game.save
       redirect_to "/games/share/#{@game.init_player_slug}"
@@ -31,19 +30,5 @@ class GamesController < ApplicationController
 
   def share
     @game = Game.find_by(init_player_slug: params[:id])
-  end
-
-  private
-
-  def parse_uri(uri)
-    if web_url?(uri)
-      { user: uri.split(":")[2], id: uri.split(":").last }
-    else
-      { user: uri.split("/")[4], id: uri.split("/").last }
-    end
-  end
-
-  def web_url?(uri)
-    uri.split("/")[1] != ""
   end
 end
