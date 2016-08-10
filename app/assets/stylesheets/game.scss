@@ -168,6 +168,27 @@ input {
     display: flex;
     align-items: center;
 }
+#lie-popup {
+    width: 26vw;
+    height: 50vh;
+    position: absolute;
+    left: 37vw;
+    top: 25vh;
+    background: #fafafa;
+    border-radius: 10px;
+    display: none;
+    font-size: 24px;
+    overflow:hidden;
+}
+#lie-popup-inner {
+    width: 26vw;
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: 24px;
+}
 .flip-container {
     perspective: 1000px;
 }

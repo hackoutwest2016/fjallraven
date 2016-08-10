@@ -13,10 +13,8 @@ $('#top-panel').ready(function(){
         window.gameboard = [];
     }
     if(window.startingPlayer){
-        console.log('a')
         onYourTurn();
     } else {
-        console.log('b')
         showLoading();
     }
 });
@@ -145,7 +143,7 @@ function answer(ans){
                 }
             });
         } else {
-            alert("Really? Trying to cheat? Come on! D:");  
+            $('#lie-popup').fadeIn();  
         }
     } else {
         // send to server
