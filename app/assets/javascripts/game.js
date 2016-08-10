@@ -1,5 +1,5 @@
-
 $('#top-panel').ready(function(){
+    var audio
     var board = localStorage.getItem(window.playerSlug+"gameboard");
     if(board) {
         window.gameboard = JSON.parse(board);
@@ -17,11 +17,24 @@ $('#top-panel').ready(function(){
     } else {
         showLoading();
     }
+
+    $("#play-btn").on("click", function() {
+      if($(this).hasClass("playing")) {
+        pauseSong();
+      } else {
+        playSong($(this).data().previewUrl);
+      }
+      $(this).toggleClass("playing");
+      $(this).toggleClass("paused");
+    });
 });
 function playSong(url){
-    var audio = new Audio();
+    audio = new Audio();
     audio.src = url;
     audio.play();
+}
+function pauseSong(){
+    audio.pause();
 }
 function newGame(same){
     var playlist_uri = window.playlist_uri;
@@ -48,7 +61,6 @@ function newGame(same){
         });
         }
     });
-
 }
 function toggleBoardMarker(index){
     window.gameboard[index] = !window.gameboard[index];
