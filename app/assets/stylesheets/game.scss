@@ -83,9 +83,15 @@ input {
     justify-content: center;
     align-items: center;
     font-size: 26px;
+    flex-direction: column;
 }
-#question-input {
-    display: none;
+#question-input-wrapper {
+    flex-direction: row;
+    display: flex;
+}
+#new-game-input-wrapper {
+    display: flex;
+    flex-direction: row;
 }
 .hidden {
     display: none;
@@ -112,12 +118,15 @@ input {
 .selected {
     background-color: green!important;
 }
-#btn-ask {
+.btn {
     background-color: #505151;
     color: #fafafa;
     width: 100px;
     margin-left: 20px;
     text-align: center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
 }
 #right-panel-bottom div:hover {
     background-color: #305151;
@@ -127,6 +136,7 @@ input {
     display: flex;
     background-color: #fff5c9;
     flex-flow: row wrap;
+    align-items: center;
 }
 .artist-marker {
     width: 80px;

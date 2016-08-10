@@ -1,4 +1,5 @@
 class GamesController < ApplicationController
+  skip_before_filter :verify_authenticity_token, only: :newgame
   def show
     @game = Game.find_by(init_player_slug: params[:id]) || Game.find_by(guest_player_slug: params[:id])
     if Game.find_by(init_player_slug: params[:id])
@@ -26,6 +27,20 @@ class GamesController < ApplicationController
   rescue RestClient::ResourceNotFound
     flash[:alert] = "Cound't find playlist"
     render :new
+  end
+  
+  def newgame
+    parsed_uri = parse_uri(params["playlist_uri"])
+    @game = GameCreatorService.new.call(parsed_uri[:user], parsed_uri[:id])
+
+    if @game.save
+      render json: @game, status: :ok
+    else
+      render nothing: true, status: 404
+    end
+  rescue RestClient::ResourceNotFound
+    flash[:alert] = "Cound't find playlist"
+    render nothing: true, status: 404
   end
 
   def share
