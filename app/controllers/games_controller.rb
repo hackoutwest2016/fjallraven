@@ -1,4 +1,5 @@
 class GamesController < ApplicationController
+  skip_before_filter :verify_authenticity_token, only: :newgame
   def show
     @game = Game.find_by(init_player_slug: params[:id]) || Game.find_by(guest_player_slug: params[:id])
     if Game.find_by(init_player_slug: params[:id])
@@ -9,7 +10,6 @@ class GamesController < ApplicationController
       @player_artist = @game.artists.find_by(spotify_artist_id: @game.guest_player_id)
     end
     @player_slug = params[:id]
-    @artists = @game.artists
     @trivia = ArtistTriviaService.call(@player_artist.name)
   end
 
@@ -17,8 +17,7 @@ class GamesController < ApplicationController
   end
 
   def create
-    parsed_uri = parse_uri(params["playlist_uri"])
-    @game = GameCreatorService.new.call(parsed_uri[:user], parsed_uri[:id])
+    @game = GameCreatorService.new.call(params["playlist_uri"])
 
     if @game.save
       redirect_to "/games/share/#{@game.init_player_slug}"
@@ -29,22 +28,21 @@ class GamesController < ApplicationController
     flash[:alert] = "Cound't find playlist"
     render :new
   end
+  
+  def newgame
+    @game = GameCreatorService.new.call(params["playlist_uri"])
+
+    if @game.save
+      render json: @game, status: :ok
+    else
+      render nothing: true, status: 404
+    end
+  rescue RestClient::ResourceNotFound
+    flash[:alert] = "Cound't find playlist"
+    render nothing: true, status: 404
+  end
 
   def share
     @game = Game.find_by(init_player_slug: params[:id])
-  end
-
-  private
-
-  def parse_uri(uri)
-    if web_url?(uri)
-      { user: uri.split(":")[2], id: uri.split(":").last }
-    else
-      { user: uri.split("/")[4], id: uri.split("/").last }
-    end
-  end
-
-  def web_url?(uri)
-    uri.split("/")[1] != ""
   end
 end

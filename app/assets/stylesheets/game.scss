@@ -67,8 +67,11 @@ input {
     background-position: center;
     background-size: cover;
 }
-#play-btn:hover{
+#play-btn.paused:hover{
     background-image: image-url('btn-play.png');
+}
+#play-btn.playing{
+    background-image: image-url('btn-pause.png');
 }
 #right-panel {
     flex:1;
@@ -87,9 +90,15 @@ input {
     justify-content: center;
     align-items: center;
     font-size: 26px;
+    flex-direction: column;
 }
-#question-input {
-    display: none;
+#question-input-wrapper {
+    flex-direction: row;
+    display: flex;
+}
+#new-game-input-wrapper {
+    display: flex;
+    flex-direction: row;
 }
 .hidden {
     display: none;
@@ -116,12 +125,15 @@ input {
 .selected {
     background-color: green!important;
 }
-#btn-ask {
+.btn {
     background-color: #505151;
     color: #fafafa;
     width: 100px;
     margin-left: 20px;
     text-align: center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
 }
 #right-panel-bottom div:hover {
     background-color: #305151;
@@ -132,6 +144,7 @@ input {
     background-color: #f2f2f2;
     flex-flow: row wrap;
     justify-content: center;
+    align-items: center;
 }
 .artist-marker {
     width: 80px;
@@ -150,11 +163,53 @@ input {
     margin: 0;
     text-align: center;
 }
-.flip-container {
-    perspective: 1000px;
+.artist-card {
+    width: 80px;
+    height: 130px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    cursor: pointer;
+}
+.artist-container {
     display: flex;
     align-items: center;
-
+}
+#lie-popup {
+    width: 26vw;
+    height: 50vh;
+    position: absolute;
+    left: 37vw;
+    top: 25vh;
+    background: #fafafa;
+    border-radius: 10px;
+    font-size: 24px;
+    display: none;
+    overflow:hidden;
+}
+#lie-popup-inner {
+    width: 26vw;
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: 24px;
+}
+#lie-popup-inner p {
+    margin-top: 0;
+}
+#sad-icon {
+    background-image: image-url('sad.png');
+    width:15vw;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 15vw;
+}
+.flip-container {
+    perspective: 1000px;
 }
 /* flip the pane when tapped */
 .flip-container.flipped .flipper {
@@ -176,14 +231,6 @@ input {
     top: 0;
     left: 0;
 }
-.artist-card {
-    width: 80px;
-    height: 130px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-}
 
 /* front pane, placed above back */
 .front {
@@ -195,4 +242,73 @@ input {
 /* back, initially hidden pane */
 .back {
     transform: rotateY(180deg);
+}
+
+.toggle-trivia {
+    cursor: pointer;
+    text-align: center;
+    color: #f2f2f2;
+}
+
+#your-artist-trivia {
+    padding: 0 30px;
+    color: #f2f2f2;
+}
+
+#your-artist-trivia a {
+    color: lighten(#f2f2f2, 20%);
+}
+
+.spinner {
+  margin: 100px auto;
+  width: 50px;
+  height: 40px;
+  text-align: center;
+  font-size: 10px;
+  display: none;
+}
+
+.spinner > div {
+  background-color: #ff6f64;
+  height: 100%;
+  width: 6px;
+  display: inline-block;
+
+  -webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;
+  animation: sk-stretchdelay 1.2s infinite ease-in-out;
+}
+
+.spinner .rect2 {
+  -webkit-animation-delay: -1.1s;
+  animation-delay: -1.1s;
+}
+
+.spinner .rect3 {
+  -webkit-animation-delay: -1.0s;
+  animation-delay: -1.0s;
+}
+
+.spinner .rect4 {
+  -webkit-animation-delay: -0.9s;
+  animation-delay: -0.9s;
+}
+
+.spinner .rect5 {
+  -webkit-animation-delay: -0.8s;
+  animation-delay: -0.8s;
+}
+
+@-webkit-keyframes sk-stretchdelay {
+  0%, 40%, 100% { -webkit-transform: scaleY(0.4) }
+  20% { -webkit-transform: scaleY(1.0) }
+}
+
+@keyframes sk-stretchdelay {
+  0%, 40%, 100% {
+    transform: scaleY(0.4);
+    -webkit-transform: scaleY(0.4);
+  }  20% {
+    transform: scaleY(1.0);
+    -webkit-transform: scaleY(1.0);
+  }
 }

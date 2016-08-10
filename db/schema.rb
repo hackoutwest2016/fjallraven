@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160809185823) do
+ActiveRecord::Schema.define(version: 20160810085857) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 20160809185823) do
     t.string   "guest_player_slug"
     t.string   "init_player_id"
     t.string   "guest_player_id"
+    t.string   "playlist_uri"
     t.index ["guest_player_slug"], name: "index_games_on_guest_player_slug", using: :btree
     t.index ["init_player_slug"], name: "index_games_on_init_player_slug", using: :btree
   end

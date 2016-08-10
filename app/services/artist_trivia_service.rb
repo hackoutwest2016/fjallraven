@@ -9,11 +9,6 @@ class ArtistTriviaService
   end
 
   def call
-    get_info
-  end
-
-  def get_info
     @response ||= @@client.artist.get_info(artist: @artist_name)
-    @response
   end
 end

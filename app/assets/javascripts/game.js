@@ -1,5 +1,5 @@
-
-$(document).ready(function(){
+$('#top-panel').ready(function(){
+    var audio
     var board = localStorage.getItem(window.playerSlug+"gameboard");
     if(board) {
         window.gameboard = JSON.parse(board);
@@ -17,11 +17,50 @@ $(document).ready(function(){
     } else {
         showLoading();
     }
+
+    $("#play-btn").on("click", function() {
+      if($(this).hasClass("playing")) {
+        pauseSong();
+      } else {
+        playSong($(this).data().previewUrl);
+      }
+      $(this).toggleClass("playing");
+      $(this).toggleClass("paused");
+    });
 });
 function playSong(url){
-    var audio = new Audio();
+    audio = new Audio();
     audio.src = url;
     audio.play();
+}
+function pauseSong(){
+    audio.pause();
+}
+function newGame(same){
+    var playlist_uri = window.playlist_uri;
+    if(!same) {
+        playlist_uri = $('#new-game-input').val();
+    }
+    $.post('/newgame', {
+        playlist_uri: playlist_uri,
+    }, function (newGame, status) {
+        if (status !== 'success') {
+            console.error(status, newGame);
+        } else {
+        $.post('/questions', {
+            type: 'newgame',
+            msg: newGame.guest_player_slug,
+            id: window.gameId,
+            slug: window.playerSlug
+        }, function (data, status) {
+            if (status !== 'success') {
+                console.error(status, data);
+            } else {
+                window.location.href = '/games/' + newGame.init_player_slug;
+            }
+        });
+        }
+    });
 }
 function toggleBoardMarker(index){
     window.gameboard[index] = !window.gameboard[index];
@@ -33,27 +72,57 @@ function onAnswerReceived(ans){
     showAnswer();
 }
 function onQuestionReceived(message){
-    console.log(message);
+    if (cleanCompare(message,window.artistName)){
+        onLose();
+    }
     $("#question").text(message);
     onNotYourTurn();
+}
+function cleanCompare(a1,a2){
+
+    return a1.replace('-',' ').toUpperCase().indexOf(a2.replace('-',' ').toUpperCase()) !== -1;
+}
+function onLose() {
+    window.lost = true;
+}
+function onLossAccepted() {
+    $(".lost").fadeIn("slow");
+    $(".answer").hide();
+    $(".not-your-turn").hide();
+    $(".your-turn").hide();
+    $(".loading").hide();
+}
+function onWin() {
+    $(".won").fadeIn("slow");
+    $(".loading").hide();
+    $(".answer").hide();
+    $(".not-your-turn").hide();
+    $(".your-turn").hide();
+    $(".lost").hide();
 }
 function showLoading(){
     $(".loading").fadeIn("slow");
     $(".answer").hide();
     $(".not-your-turn").hide();
     $(".your-turn").hide();
+    $(".lost").hide();
+    $(".won").hide();
 }
 function showAnswer(){
     $(".answer").fadeIn("slow");
     $(".loading").hide();
     $(".not-your-turn").hide();
     $(".your-turn").hide();
+    $(".lost").hide();
+    $(".won").hide();
 }
 function onYourTurn(){
     $(".your-turn").fadeIn("slow");
     $(".loading").hide();
     $(".not-your-turn").hide();
     $(".answer").hide();
+    $(".lost").hide();
+    $(".won").hide();
     $("#btn-answer-no").removeClass('selected');
     $("#btn-answer-yes").removeClass('selected');
 }
@@ -62,6 +131,8 @@ function onNotYourTurn(){
     $(".loading").hide();
     $(".your-turn").hide();
     $(".answer").hide();
+    $(".lost").hide();
+    $(".won").hide();
 }
 function answer(ans){
     if(ans==="yes"){
@@ -71,21 +142,41 @@ function answer(ans){
         $("#btn-answer-yes").removeClass('selected');
         $("#btn-answer-no").addClass('selected');
     }
-    // send to server
-    $.post('/questions', {
-        type: 'answer',
-        msg: ans,
-        id: window.gameId,
-        slug: window.playerSlug
-    }, function (data, status) {
-        if (status !== 'success') {
-            console.error(status, data);
+    if(window.lost){
+        if(ans==="yes"){
+            $.post('/questions', {
+                type: 'lost',
+                msg: ans,
+                id: window.gameId,
+                slug: window.playerSlug
+            }, function (data, status) {
+                onLossAccepted();
+                if (status !== 'success') {
+                    console.error(status, data);
+                }
+            });
+        } else {
+            $('#lie-popup').fadeIn();  
         }
-    });
-    onYourTurn();
+    } else {
+        // send to server
+        $.post('/questions', {
+            type: 'answer',
+            msg: ans,
+            id: window.gameId,
+            slug: window.playerSlug
+        }, function (data, status) {
+            if (status !== 'success') {
+                console.error(status, data);
+            }
+        });
+        onYourTurn();
+    }
 }
 function ask(){
     var question = $("#question-input").val();
+    if (question.trim() === '') return;
+    $("#asked-question").text(question);
     $("#question-input").val('');
     $.post('/questions', {
         type: 'question',
@@ -98,4 +189,14 @@ function ask(){
         }
     });
     showLoading();
+}
+function showTrivia() {
+    $('#your-artist-box').fadeOut('fast', function () {
+        $('#your-artist-trivia').fadeIn('fast');
+    });
+}
+function hideTrivia() {
+    $('#your-artist-trivia').fadeOut('fast', function () {
+        $('#your-artist-box').fadeIn('fast');
+    });
 }

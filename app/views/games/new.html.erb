@@ -14,12 +14,19 @@
       <li> Start asking each other questions to find out who the other person is! Turn away the artists that have been eliminated by clicking at them.</li>
     </ol>
   </div>
-  <div>
+  <div class="form">
     <h2>Start a new game:</h2>
 
     <%= form_tag(action: 'create') do %>
       <%= text_field_tag "playlist_uri" %>
-      <%= submit_tag (value = "Start game"), data: { disable_with: "Please wait..." } %>
+      <%= submit_tag (value = "Start game"), class: "submit-button" %>
     <% end %>
   </div>
+
+<div class="spinner">
+  <div class="rect1"></div>
+  <div class="rect2"></div>
+  <div class="rect3"></div>
+  <div class="rect4"></div>
+  <div class="rect5"></div>
 </div>

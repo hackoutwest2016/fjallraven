@@ -8,5 +8,7 @@ Rails.application.routes.draw do
 
   get '/games/share/:id', to: 'games#share'
 
+  post '/newgame', to: 'games#newgame'
+
   resources :questions, only: :create
 end
