@@ -13,10 +13,8 @@ $('#top-panel').ready(function(){
         window.gameboard = [];
     }
     if(window.startingPlayer){
-        console.log('a')
         onYourTurn();
     } else {
-        console.log('b')
         showLoading();
     }
 
@@ -158,7 +156,7 @@ function answer(ans){
                 }
             });
         } else {
-            alert("Really? Trying to cheat? Come on! D:");
+            $('#lie-popup').fadeIn();  
         }
     } else {
         // send to server
@@ -177,6 +175,7 @@ function answer(ans){
 }
 function ask(){
     var question = $("#question-input").val();
+    $("#asked-question").text(question);
     $("#question-input").val('');
     $.post('/questions', {
         type: 'question',
