@@ -69,7 +69,8 @@ function onQuestionReceived(message){
     onNotYourTurn();
 }
 function cleanCompare(a1,a2){
-    return a1.replace('-',' ').toUpperCase().contains(a2.replace('-',' ').toUpperCase());
+
+    return a1.replace('-',' ').toUpperCase().indexOf(a2.replace('-',' ').toUpperCase()) !== -1;
 }
 function onLose() {
     window.lost = true;
@@ -145,7 +146,7 @@ function answer(ans){
                 }
             });
         } else {
-            alert("Really? Trying to cheat? Come on! D:");  
+            alert("Really? Trying to cheat? Come on! D:");
         }
     } else {
         // send to server
